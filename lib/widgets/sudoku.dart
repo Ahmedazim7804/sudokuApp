@@ -21,6 +21,7 @@ class Sudoku extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 20))),
       home: Scaffold(
+        backgroundColor: kColorScheme.secondaryContainer,
         appBar: AppBar(
           title: Text("Sudoku"),
           actions: [
