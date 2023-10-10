@@ -13,7 +13,7 @@ class SubGrid extends StatelessWidget {
         decoration:
             BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
         child: GridView.count(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             crossAxisCount: 3,
             children: thisGridCells),
       ),

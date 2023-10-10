@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'staticClass.dart';
+import '../model/model.dart';
 
-ColorScheme kColorScheme = ColorScheme.fromSeed(
-    seedColor: Color.fromARGB(255, 140, 1, 248), brightness: Brightness.dark);
+ColorScheme colorScheme = ColorScheme.fromSeed(
+    seedColor: const Color.fromARGB(255, 140, 1, 248),
+    brightness: Brightness.dark);
 
 class Cell extends StatefulWidget {
   Cell({
@@ -16,7 +17,7 @@ class Cell extends StatefulWidget {
   bool disabled;
   int cellValue;
   final int row;
-  Color color = kColorScheme.onSecondaryContainer.withAlpha(120);
+  Color color = colorScheme.onSecondaryContainer.withAlpha(120);
   final int column;
   Function updateCellValue = () {};
 
@@ -31,10 +32,11 @@ class _Cell extends State<Cell> {
     setState(() {
       widget.disabled = value != 0 ? true : false;
       widget.cellValue = value;
+      changeColorIfIncorrect();
     });
   }
 
-  void changeColor() {
+  void changeColorIfIncorrect() {
     if (!CellFunctions.isCellCorrect(
         CellFunctions.cells[widget.row][widget.column])) {
       widget.color = const Color.fromARGB(120, 244, 67, 54);
@@ -44,15 +46,45 @@ class _Cell extends State<Cell> {
     }
   }
 
-  void onCellClick() {
-    setState(() {
-      if (widget.cellValue != 9) {
-        widget.cellValue++;
-        changeColor();
-      } else {
-        widget.cellValue = 0;
-      }
-    });
+  void _showMenu() {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                      5,
+                      (index) => Expanded(
+                            child: TextButton(
+                                onPressed: () {
+                                  updateCellValue(index);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(index.toString())),
+                          )),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                      5,
+                      (index) => Expanded(
+                            child: TextButton(
+                                onPressed: () {
+                                  updateCellValue(index + 5);
+                                  Navigator.pop(context);
+                                },
+                                child: Text((index + 5).toString())),
+                          )),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -60,7 +92,7 @@ class _Cell extends State<Cell> {
     widget.updateCellValue = updateCellValue;
 
     return GestureDetector(
-      onTap: widget.disabled ? null : onCellClick,
+      onTap: _showMenu, //widget.disabled ? null : onCellClick,
       child: Card(
         child: Container(
           decoration: BoxDecoration(
@@ -68,10 +100,7 @@ class _Cell extends State<Cell> {
               shape: BoxShape.rectangle,
               color: widget.color),
           alignment: Alignment.center,
-          child: Text(
-            widget.cellValue == 0 ? "" : widget.cellValue.toString(),
-            style: TextStyle(color: widget.color),
-          ),
+          child: Text(widget.cellValue == 0 ? "" : widget.cellValue.toString()),
         ),
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/cell.dart';
 import 'subGrid.dart';
-import 'staticClass.dart';
+import 'aboutScreen.dart';
+import '../model/model.dart';
 
 class SudokuGrid extends StatelessWidget {
   const SudokuGrid(this.difficulty, {super.key});
@@ -16,37 +17,68 @@ class SudokuGrid extends StatelessWidget {
       Navigator.pop(context);
     }
 
-    void resetSudoku() {
+    void goToinfoScreen() {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const AboutScreen()));
+    }
+
+    void wrongSolutionDialog() {
       showDialog(
           context: context,
           builder: (ctx) {
             return const AlertDialog(
-                title: Text("Message"), content: Text("Sudoku is Correct"));
+              title: Image(image: AssetImage("assets/sorry.png")),
+              content: Text(
+                "Your Solution is Incorrect\nPlease Try Again",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            );
           });
-      CellFunctions.resetSudoku();
+    }
+
+    AlertDialog correctSolutionDialog() {
+      return const AlertDialog(
+          title: Text(
+            "YOU WON",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Image(image: AssetImage('assets/trophy.png')));
+    }
+
+    void incompleteSolutionDialog() {
+      showDialog(
+          context: context,
+          builder: (ctx) {
+            return const AlertDialog(
+                title: Text("Bro"),
+                content: Text(
+                  "Complete The Sudoku First.",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ));
+          });
+    }
+
+    void solutionIsCorrect() async {
+      await showDialog(
+          context: context,
+          builder: (ctx) {
+            return correctSolutionDialog();
+          });
+      goToHomeScreen();
     }
 
     void checkSudoku() {
       if (!CellFunctions.isSudokuFilled) {
-        showDialog(
-            context: context,
-            builder: (ctx) {
-              return const AlertDialog(
-                  title: Text("Message"),
-                  content: Text("Complete The Sudoku First."));
-            });
+        incompleteSolutionDialog();
         return;
       }
 
       if (!CellFunctions.isSudokuCorrect) {
-        showDialog(
-            context: context,
-            builder: (ctx) {
-              return const AlertDialog(
-                  title: Text("Message"), content: Text("Sudoku is wrong"));
-            });
+        wrongSolutionDialog();
       } else {
-        resetSudoku();
+        solutionIsCorrect();
       }
     }
 
@@ -82,14 +114,14 @@ class SudokuGrid extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: goToinfoScreen,
               icon: Icon(
-                Icons.menu,
-                color: kColorScheme.onPrimary,
+                Icons.info,
+                color: colorScheme.onPrimary,
               ))
         ],
       ),
-      backgroundColor: kColorScheme.secondaryContainer,
+      backgroundColor: colorScheme.secondaryContainer,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,4 @@
-import 'cell.dart';
+import '../widgets/cell.dart';
 import 'dart:math';
 
 class CellFunctions {
@@ -3287,8 +3287,92 @@ class CellFunctions {
   }
 
   static void getNewSudoku(String difficulty) {
-    List<int> listOfValues = listOfSudokus[difficulty]![
-        Random().nextInt(listOfSudokus[difficulty]!.length)];
+    // List<int> listOfValues = listOfSudokus[difficulty]![
+    //     Random().nextInt(listOfSudokus[difficulty]!.length)];
+
+    List<int> listOfValues = [
+      3,
+      9,
+      1,
+      2,
+      5,
+      6,
+      8,
+      4,
+      7,
+      7,
+      6,
+      4,
+      3,
+      1,
+      8,
+      9,
+      5,
+      2,
+      2,
+      8,
+      5,
+      7,
+      4,
+      9,
+      1,
+      3,
+      6,
+      9,
+      3,
+      7,
+      8,
+      2,
+      0,
+      6,
+      1,
+      5,
+      1,
+      4,
+      2,
+      6,
+      9,
+      5,
+      3,
+      7,
+      8,
+      8,
+      5,
+      6,
+      1,
+      3,
+      7,
+      4,
+      2,
+      9,
+      6,
+      2,
+      3,
+      9,
+      7,
+      1,
+      5,
+      8,
+      4,
+      5,
+      7,
+      8,
+      4,
+      6,
+      3,
+      2,
+      9,
+      1,
+      4,
+      1,
+      9,
+      5,
+      8,
+      2,
+      7,
+      6,
+      3
+    ];
 
     int i, j;
     for (int k = 0; k < 81; k++) {
