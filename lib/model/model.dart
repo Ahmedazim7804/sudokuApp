@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import '../widgets/cell.dart';
 import 'dart:math';
+import 'dart:convert';
+import 'dart:io';
 
 class CellFunctions {
   static Map<String, List<List<int>>> listOfSudokus = {
-    'easy': [
+    "easy": [
       [
         7,
         0,
@@ -1582,7 +1587,7 @@ class CellFunctions {
         0
       ]
     ],
-    'medium': [
+    "medium": [
       [
         0,
         0,
@@ -1664,7 +1669,7 @@ class CellFunctions {
         3,
         0,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -1747,7 +1752,7 @@ class CellFunctions {
         8,
         0,
         9,
-        0,
+        0
       ],
       [
         0,
@@ -1830,7 +1835,7 @@ class CellFunctions {
         0,
         7,
         6,
-        2,
+        2
       ],
       [
         0,
@@ -1913,7 +1918,7 @@ class CellFunctions {
         4,
         0,
         0,
-        0,
+        0
       ],
       [
         5,
@@ -1996,7 +2001,7 @@ class CellFunctions {
         6,
         5,
         9,
-        0,
+        0
       ],
       [
         0,
@@ -2079,7 +2084,7 @@ class CellFunctions {
         0,
         2,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -2162,7 +2167,7 @@ class CellFunctions {
         0,
         0,
         0,
-        6,
+        6
       ],
       [
         0,
@@ -2245,7 +2250,7 @@ class CellFunctions {
         9,
         7,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -2328,7 +2333,7 @@ class CellFunctions {
         0,
         6,
         0,
-        0,
+        0
       ],
       [
         5,
@@ -2414,7 +2419,7 @@ class CellFunctions {
         0
       ]
     ],
-    'hard': [
+    "hard": [
       [
         0,
         9,
@@ -2496,7 +2501,7 @@ class CellFunctions {
         9,
         0,
         5,
-        3,
+        3
       ],
       [
         0,
@@ -2579,7 +2584,7 @@ class CellFunctions {
         0,
         3,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -2662,7 +2667,7 @@ class CellFunctions {
         0,
         0,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -2745,7 +2750,7 @@ class CellFunctions {
         0,
         0,
         7,
-        0,
+        0
       ],
       [
         8,
@@ -2828,7 +2833,7 @@ class CellFunctions {
         0,
         0,
         5,
-        2,
+        2
       ],
       [
         0,
@@ -2911,7 +2916,7 @@ class CellFunctions {
         0,
         0,
         6,
-        7,
+        7
       ],
       [
         0,
@@ -2994,7 +2999,7 @@ class CellFunctions {
         0,
         0,
         0,
-        0,
+        0
       ],
       [
         0,
@@ -3077,7 +3082,7 @@ class CellFunctions {
         0,
         2,
         0,
-        3,
+        3
       ],
       [
         0,
@@ -3160,7 +3165,7 @@ class CellFunctions {
         0,
         0,
         0,
-        0,
+        0
       ],
       [
         3,
@@ -3243,7 +3248,7 @@ class CellFunctions {
         0,
         0,
         0,
-        0,
+        0
       ]
     ]
   };
@@ -3286,93 +3291,20 @@ class CellFunctions {
     }
   }
 
-  static void getNewSudoku(String difficulty) {
-    // List<int> listOfValues = listOfSudokus[difficulty]![
-    //     Random().nextInt(listOfSudokus[difficulty]!.length)];
+  static void readSudokusfromFile() async {
+    String jsonString =
+        await rootBundle.loadString('assets/listOfSudokus.json');
 
-    List<int> listOfValues = [
-      3,
-      9,
-      1,
-      2,
-      5,
-      6,
-      8,
-      4,
-      7,
-      7,
-      6,
-      4,
-      3,
-      1,
-      8,
-      9,
-      5,
-      2,
-      2,
-      8,
-      5,
-      7,
-      4,
-      9,
-      1,
-      3,
-      6,
-      9,
-      3,
-      7,
-      8,
-      2,
-      0,
-      6,
-      1,
-      5,
-      1,
-      4,
-      2,
-      6,
-      9,
-      5,
-      3,
-      7,
-      8,
-      8,
-      5,
-      6,
-      1,
-      3,
-      7,
-      4,
-      2,
-      9,
-      6,
-      2,
-      3,
-      9,
-      7,
-      1,
-      5,
-      8,
-      4,
-      5,
-      7,
-      8,
-      4,
-      6,
-      3,
-      2,
-      9,
-      1,
-      4,
-      1,
-      9,
-      5,
-      8,
-      2,
-      7,
-      6,
-      3
-    ];
+    Map<String, dynamic> parsedJson = json.decode(jsonString);
+
+    listOfSudokus['easy'] = parsedJson['easy'];
+    listOfSudokus['medium'] = parsedJson['medium'];
+    listOfSudokus['hard'] = parsedJson['hard'];
+  }
+
+  static void getNewSudoku(String difficulty) {
+    List<int> listOfValues = listOfSudokus[difficulty]![
+        Random().nextInt(listOfSudokus[difficulty]!.length)];
 
     int i, j;
     for (int k = 0; k < 81; k++) {
