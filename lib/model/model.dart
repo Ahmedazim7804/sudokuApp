@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../widgets/cell.dart';
 import 'dart:math';
 import 'dart:convert';
-import 'dart:io';
 
 class CellFunctions {
   static Map<String, List<List<int>>> listOfSudokus = {
