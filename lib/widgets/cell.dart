@@ -102,13 +102,21 @@ class _Cell extends State<Cell> {
     return GestureDetector(
       onTap: widget.disabled ? null : _showMenu,
       child: Card(
+        color: Theme.of(context).colorScheme.primary.withAlpha(150),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               shape: BoxShape.rectangle,
               color: widget.color),
           alignment: Alignment.center,
-          child: Text(widget.cellValue == 0 ? "" : widget.cellValue.toString()),
+          child: Text(
+            widget.cellValue == 0 ? "" : widget.cellValue.toString(),
+            style: TextStyle(
+                color: widget.disabled ? Colors.black : Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
