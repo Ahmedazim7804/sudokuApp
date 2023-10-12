@@ -3323,6 +3323,7 @@ class CellFunctions {
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
         cells[i][j].updateCellValue(board[i][j]);
+        cells[i][j].updateDisabledValue();
       }
     }
   }

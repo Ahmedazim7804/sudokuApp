@@ -20,6 +20,7 @@ class Cell extends StatefulWidget {
   Color color = colorScheme.onSecondaryContainer.withAlpha(120);
   final int column;
   Function updateCellValue = () {};
+  Function updateDisabledValue = () {};
 
   @override
   State<Cell> createState() {
@@ -30,10 +31,13 @@ class Cell extends StatefulWidget {
 class _Cell extends State<Cell> {
   void updateCellValue(int value) {
     setState(() {
-      widget.disabled = value != 0 ? true : false;
       widget.cellValue = value;
       changeColorIfIncorrect();
     });
+  }
+
+  void updateDisabledValue() {
+    widget.disabled = widget.cellValue != 0 ? true : false;
   }
 
   void changeColorIfIncorrect() {
@@ -90,9 +94,10 @@ class _Cell extends State<Cell> {
   @override
   Widget build(BuildContext context) {
     widget.updateCellValue = updateCellValue;
+    widget.updateDisabledValue = updateDisabledValue;
 
     return GestureDetector(
-      onTap: _showMenu, //widget.disabled ? null : onCellClick,
+      onTap: widget.disabled ? null : _showMenu,
       child: Card(
         child: Container(
           decoration: BoxDecoration(
