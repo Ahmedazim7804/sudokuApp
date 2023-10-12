@@ -102,6 +102,7 @@ class _Cell extends State<Cell> {
     return GestureDetector(
       onTap: widget.disabled ? null : _showMenu,
       child: Card(
+        elevation: 10,
         color: widget.color,
         child: Container(
           decoration: BoxDecoration(
