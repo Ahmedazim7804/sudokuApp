@@ -11,8 +11,6 @@ class SudokuGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CellFunctions.getNewSudoku(difficulty);
-
     void goToHomeScreen() {
       Navigator.pop(context);
     }
@@ -102,50 +100,59 @@ class SudokuGrid extends StatelessWidget {
       return thisGridCells;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sudoku"),
-        leading: IconButton(
-          onPressed: goToHomeScreen,
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: goToinfoScreen,
-              icon: Icon(
-                Icons.info,
-                color: colorScheme.onPrimary,
-              ))
-        ],
-      ),
-      backgroundColor: colorScheme.secondaryContainer,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              children: [
-                SubGrid(thisGridCells(0)),
-                SubGrid(thisGridCells(1)),
-                SubGrid(thisGridCells(2)),
-                SubGrid(thisGridCells(3)),
-                SubGrid(thisGridCells(4)),
-                SubGrid(thisGridCells(5)),
-                SubGrid(thisGridCells(6)),
-                SubGrid(thisGridCells(7)),
-                SubGrid(thisGridCells(8)),
-              ],
-            ),
-            ElevatedButton(
-                onPressed: checkSudoku, child: const Text("Check Sudoku"))
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: CellFunctions.getNewSudoku(difficulty),
+        builder: (context, snapshot) {
+          if (ConnectionState.done == snapshot.connectionState) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Sudoku"),
+                leading: IconButton(
+                  onPressed: goToHomeScreen,
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                      onPressed: goToinfoScreen,
+                      icon: Icon(
+                        Icons.info,
+                        color: colorScheme.onPrimary,
+                      ))
+                ],
+              ),
+              backgroundColor: colorScheme.secondaryContainer,
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      children: [
+                        SubGrid(thisGridCells(0)),
+                        SubGrid(thisGridCells(1)),
+                        SubGrid(thisGridCells(2)),
+                        SubGrid(thisGridCells(3)),
+                        SubGrid(thisGridCells(4)),
+                        SubGrid(thisGridCells(5)),
+                        SubGrid(thisGridCells(6)),
+                        SubGrid(thisGridCells(7)),
+                        SubGrid(thisGridCells(8)),
+                      ],
+                    ),
+                    ElevatedButton(
+                        onPressed: checkSudoku,
+                        child: const Text("Check Sudoku"))
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
   }
 }

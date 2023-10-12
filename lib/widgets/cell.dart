@@ -41,7 +41,10 @@ class _Cell extends State<Cell> {
   }
 
   void changeColorIfIncorrect() {
-    if (!CellFunctions.isCellCorrect(
+    if (CellFunctions.cells[widget.row][widget.column].cellValue == 0) {
+      widget.color =
+          Theme.of(context).colorScheme.onSecondaryContainer.withAlpha(120);
+    } else if (!CellFunctions.isCellCorrect(
         CellFunctions.cells[widget.row][widget.column])) {
       widget.color = const Color.fromARGB(120, 244, 67, 54);
     } else {
