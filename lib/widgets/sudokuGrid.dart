@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/cell.dart';
+import 'package:sudoku/widgets/valueAddWidget.dart';
 import 'subGrid.dart';
 import 'aboutScreen.dart';
 import '../model/model.dart';
@@ -143,9 +144,10 @@ class SudokuGrid extends StatelessWidget {
                         SubGrid(thisGridCells(8), 8),
                       ],
                     ),
+                    MyWidget(),
                     ElevatedButton(
                         onPressed: checkSudoku,
-                        child: const Text("Check Sudoku"))
+                        child: const Text("Check Sudoku")),
                   ],
                 ),
               ),

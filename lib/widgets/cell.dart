@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/model.dart';
+import 'valueAddWidget.dart';
 
 ColorScheme colorScheme = ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 140, 1, 248),
@@ -21,6 +22,7 @@ class Cell extends StatefulWidget {
   final int column;
   Function updateCellValue = () {};
   Function updateDisabledValue = () {};
+  Function unselectThisCell = () {};
 
   @override
   State<Cell> createState() {
@@ -94,13 +96,28 @@ class _Cell extends State<Cell> {
         });
   }
 
+  void selectThisCell() {
+    MyWidget.selectCell(widget.row, widget.column);
+    MyWidget.unselectPreviousCell();
+    setState(() {
+      widget.color = Colors.white;
+    });
+  }
+
+  void unselectThisCell() {
+    setState(() {
+      changeColorIfIncorrect();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     widget.updateCellValue = updateCellValue;
     widget.updateDisabledValue = updateDisabledValue;
+    widget.unselectThisCell = unselectThisCell;
 
     return GestureDetector(
-      onTap: widget.disabled ? null : _showMenu,
+      onTap: widget.disabled ? null : selectThisCell,
       child: Card(
         elevation: 10,
         color: widget.color,
