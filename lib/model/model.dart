@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import '../widgets/cell.dart';
 import 'dart:math';
 import 'dart:convert';
-import 'dart:io';
 
 class CellFunctions {
   static final List<List<Cell>> cells = [[], [], [], [], [], [], [], [], []];
