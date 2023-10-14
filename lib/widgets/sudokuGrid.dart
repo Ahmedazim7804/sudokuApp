@@ -144,7 +144,7 @@ class SudokuGrid extends StatelessWidget {
                         SubGrid(thisGridCells(8), 8),
                       ],
                     ),
-                    MyWidget(),
+                    const MyWidget(),
                     ElevatedButton(
                         onPressed: checkSudoku,
                         child: const Text("Check Sudoku")),
@@ -153,7 +153,7 @@ class SudokuGrid extends StatelessWidget {
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }

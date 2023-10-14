@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  String _selectedDifficulty = 'easy';
+  String _selectedDifficulty = 'testing';
 
   void goTogameScreen() {
     Navigator.push(
@@ -62,6 +62,10 @@ class _HomeScreen extends State<HomeScreen> {
                 DropdownButton(
                     value: _selectedDifficulty,
                     items: const [
+                      DropdownMenuItem(
+                        value: 'testing',
+                        child: Text('Testing'),
+                      ),
                       DropdownMenuItem(
                         value: 'easy',
                         child: Text('Easy'),
