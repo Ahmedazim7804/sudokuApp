@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/aboutScreen.dart';
-import 'package:sudoku/widgets/sudokuGrid.dart';
+import 'package:sudoku/widgets/gameScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +18,7 @@ class _HomeScreen extends State<HomeScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SudokuGrid(_selectedDifficulty)));
+            builder: (context) => GameScreen(_selectedDifficulty)));
   }
 
   void goToinfoScreen() {
