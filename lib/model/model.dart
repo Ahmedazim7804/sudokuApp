@@ -1,11 +1,13 @@
 import 'package:flutter/services.dart';
-
+import 'sudokuSolver.dart';
 import '../widgets/cell.dart';
 import 'dart:math';
 import 'dart:convert';
 
 class CellFunctions {
   static final List<List<Cell>> cells = [[], [], [], [], [], [], [], [], []];
+
+  static List<List<int>> solvedSudoku = [];
 
   static final List<List<int>> board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -64,6 +66,8 @@ class CellFunctions {
     } else {
       updateAllCells(board);
     }
+
+    solvedSudoku = getSolvedSudoku(board);
   }
 
   static void resetSudoku() {
@@ -176,5 +180,27 @@ class CellFunctions {
     }
 
     return true;
+  }
+
+  static void getHint() {
+    List<List<int>> unsolvedCells = [];
+
+    for (int i = 0; i < 9; i++) {
+      for (int j = 0; j < 9; j++) {
+        if (cells[i][j].cellValue == 0) {
+          unsolvedCells.add([i, j]);
+        }
+      }
+    }
+
+    if (unsolvedCells.isEmpty) {
+      return;
+    }
+
+    int chosenCell = Random().nextInt(unsolvedCells.length);
+    int i = unsolvedCells.elementAt(chosenCell)[0];
+    int j = unsolvedCells.elementAt(chosenCell)[1];
+
+    cells[i][j].updateCellValue(board[i][j]);
   }
 }
