@@ -55,47 +55,6 @@ class _Cell extends State<Cell> {
     }
   }
 
-  void _showMenu() {
-    showDialog(
-        context: context,
-        builder: (ctx) {
-          return Dialog(
-            backgroundColor: Colors.transparent,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                      5,
-                      (index) => Expanded(
-                            child: TextButton(
-                                onPressed: () {
-                                  updateCellValue(index);
-                                  Navigator.pop(context);
-                                },
-                                child: Text(index.toString())),
-                          )),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                      5,
-                      (index) => Expanded(
-                            child: TextButton(
-                                onPressed: () {
-                                  updateCellValue(index + 5);
-                                  Navigator.pop(context);
-                                },
-                                child: Text((index + 5).toString())),
-                          )),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   void selectThisCell() {
     MyWidget.selectCell(widget.row, widget.column);
     MyWidget.unselectPreviousCell();
