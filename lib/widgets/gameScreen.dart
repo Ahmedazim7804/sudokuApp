@@ -116,9 +116,9 @@ class GameScreen extends StatelessWidget {
                     TimerWidget(
                       key: timerKey,
                     ),
-                    HintWidget(),
+                    const HintWidget(),
                     const SudokuGrid(),
-                    const MyWidget(),
+                    const InputValueWidget(),
                     ElevatedButton(
                         onPressed: checkSudoku,
                         child: const Text("Check Sudoku")),

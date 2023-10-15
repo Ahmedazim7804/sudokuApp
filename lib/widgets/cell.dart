@@ -56,8 +56,8 @@ class _Cell extends State<Cell> {
   }
 
   void selectThisCell() {
-    MyWidget.selectCell(widget.row, widget.column);
-    MyWidget.unselectPreviousCell();
+    InputValueWidget.selectCell(widget.row, widget.column);
+    InputValueWidget.unselectPreviousCell();
     setState(() {
       widget.color = Colors.white;
     });

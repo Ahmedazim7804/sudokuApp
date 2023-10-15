@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/model/model.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class InputValueWidget extends StatelessWidget {
+  const InputValueWidget({super.key});
 
   static int row = -1;
   static int column = -1;
