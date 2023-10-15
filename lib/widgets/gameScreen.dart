@@ -8,9 +8,10 @@ import 'aboutScreen.dart';
 import '../model/model.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen(this.difficulty, {super.key});
+  GameScreen(this.difficulty, {super.key});
 
   final String difficulty;
+  final GlobalKey<TimerWidgetState> timerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class GameScreen extends StatelessWidget {
     }
 
     void solutionIsCorrect() async {
+      timerKey.currentState?.stopTimer();
       await showDialog(
           context: context,
           builder: (ctx) {
@@ -111,7 +113,9 @@ class GameScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TimerWidget(),
+                    TimerWidget(
+                      key: timerKey,
+                    ),
                     HintWidget(),
                     const SudokuGrid(),
                     const MyWidget(),

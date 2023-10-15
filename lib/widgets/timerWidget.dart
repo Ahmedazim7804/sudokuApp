@@ -6,17 +6,21 @@ class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
 
   @override
-  State<TimerWidget> createState() => _TimerWidgetState();
+  State<TimerWidget> createState() => TimerWidgetState();
 }
 
-class _TimerWidgetState extends State<TimerWidget> {
+class TimerWidgetState extends State<TimerWidget> {
   DateTime timeElapsed = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
   late Timer timer;
 
+  void stopTimer() {
+    timer.cancel();
+  }
+
   @override
   void dispose() {
-    timer.cancel();
+    stopTimer();
     super.dispose();
   }
 
