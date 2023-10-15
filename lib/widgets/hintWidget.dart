@@ -12,10 +12,12 @@ class _HintWidgetState extends State<HintWidget> {
   int hintsTaken = 0;
 
   void getHint() {
-    CellFunctions.getHint();
-    setState(() {
-      hintsTaken++;
-    });
+    bool gotHint = CellFunctions.getHint();
+    if (gotHint) {
+      setState(() {
+        hintsTaken++;
+      });
+    }
   }
 
   @override

@@ -182,7 +182,7 @@ class CellFunctions {
     return true;
   }
 
-  static void getHint() {
+  static bool getHint() {
     List<List<int>> unsolvedCells = [];
 
     for (int i = 0; i < 9; i++) {
@@ -194,7 +194,7 @@ class CellFunctions {
     }
 
     if (unsolvedCells.isEmpty) {
-      return;
+      return false;
     }
 
     int chosenCell = Random().nextInt(unsolvedCells.length);
@@ -202,5 +202,7 @@ class CellFunctions {
     int j = unsolvedCells.elementAt(chosenCell)[1];
 
     cells[i][j].updateCellValue(board[i][j]);
+    cells[i][j].updateDisabledValue();
+    return true;
   }
 }
