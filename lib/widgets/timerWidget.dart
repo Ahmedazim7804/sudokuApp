@@ -24,7 +24,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   void initState() {
     timer = Timer.periodic(const Duration(seconds: 1), (timers) {
       setState(() {
-        timeElapsed = timeElapsed.add(Duration(seconds: 1));
+        timeElapsed = timeElapsed.add(const Duration(seconds: 1));
       });
     });
     super.initState();
