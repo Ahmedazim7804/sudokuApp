@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/cell.dart';
 import 'package:sudoku/widgets/hintWidget.dart';
 import 'package:sudoku/widgets/sudokuGrid.dart';
+import 'package:sudoku/widgets/timerWidget.dart';
 import 'package:sudoku/widgets/valueAddWidget.dart';
 import 'aboutScreen.dart';
 import '../model/model.dart';
@@ -110,6 +111,7 @@ class GameScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    TimerWidget(),
                     HintWidget(),
                     const SudokuGrid(),
                     const MyWidget(),
