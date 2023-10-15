@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/cell.dart';
 import 'package:sudoku/widgets/hintWidget.dart';
+import 'package:sudoku/widgets/leaderboardScreen.dart';
 import 'package:sudoku/widgets/sudokuGrid.dart';
 import 'package:sudoku/widgets/timerWidget.dart';
 import 'package:sudoku/widgets/valueAddWidget.dart';
@@ -8,12 +9,57 @@ import 'aboutScreen.dart';
 import '../model/model.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen(this.difficulty, {super.key});
+  GameScreen(this.difficulty, {super.key});
 
   final String difficulty;
+  final GlobalKey<TimerWidgetState> timerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    final Widget timer = TimerWidget(key: timerKey);
+    final nameTextFieldController = TextEditingController();
+
+    void addRecord() {}
+
+    void addRecordDialog() {
+      showDialog(
+          context: context,
+          builder: (BuildContext ctx) {
+            return Dialog(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: nameTextFieldController,
+                        maxLength: 20,
+                        decoration: const InputDecoration(
+                          label: Text("Name"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Cancel")),
+                          ElevatedButton(
+                              onPressed: addRecord, child: const Text("Add")),
+                        ],
+                      ),
+                    ],
+                  ),
+                ));
+          });
+    }
+
     void goToHomeScreen() {
       Navigator.pop(context);
     }
@@ -39,13 +85,27 @@ class GameScreen extends StatelessWidget {
     }
 
     AlertDialog correctSolutionDialog() {
-      return const AlertDialog(
-          title: Text(
-            "YOU WON",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          content: Image(image: AssetImage('assets/trophy.png')));
+      return AlertDialog(
+        title: const Text(
+          "YOU WON",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        content: const Image(image: AssetImage('assets/trophy.png')),
+        actions: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: addRecordDialog,
+                    child: const Text("Add Record")),
+                TextButton(onPressed: () {}, child: const Text("Homescreen")),
+              ],
+            ),
+          )
+        ],
+      );
     }
 
     void incompleteSolutionDialog() {
@@ -53,11 +113,12 @@ class GameScreen extends StatelessWidget {
           context: context,
           builder: (ctx) {
             return const AlertDialog(
-                title: Text("Bro"),
-                content: Text(
-                  "Complete The Sudoku First.",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ));
+              title: Text("Bro"),
+              content: Text(
+                "Complete The Sudoku First.",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            );
           });
     }
 
@@ -111,7 +172,7 @@ class GameScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TimerWidget(),
+                    timer,
                     HintWidget(),
                     const SudokuGrid(),
                     const MyWidget(),
